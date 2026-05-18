@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TikTok USD Wallet</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .wallet {
+      width: 90%;
+      max-width: 400px;
+      background: #111;
+      border-radius: 25px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .balance {
+      background: #00ff88;
+      color: black;
+      padding: 20px;
+      border-radius: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .tiktok-box {
+      background: #1a1a1a;
+      border: 1px solid #ff0050;
+      padding: 15px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 12px;
+      background: #222;
+      color: white;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 15px;
+      background: linear-gradient(90deg,#ff0050,#00ff88);
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      color: #00ff88;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wallet">
+  <h1>TikTok USD Wallet</h1>
+
+  <div class="balance" id="balance">$5000000</div>
+
+  <div class="tiktok-box">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <img id="dp" src="https://ui-avatars.com/api/?name=TikTok&background=ff0050&color=fff&size=128"
+      style="width:60px;height:60px;border-radius:50%;">
+      <div>
+        <h3 id="showUser">@username ✔</h3>
+        <p id="followers">Followers: 125K</p>
+        <p id="likes">Likes: 2.5M</p>
+      </div>
+    </div>
+  </div>
+
+  <select>
+    <option>PayPal</option>
+    <option>Visa Card</option>
+    <option>Binance</option>
+  </select>
+
+  <input type="text" id="username" placeholder="Enter TikTok Username">
+  <input type="number" id="amount" placeholder="Enter USD Amount">
+
+  <button onclick="sendUSD()">Search & Send USD</button>
+
+  <div class="message" id="message"></div>
+</div>
+
+<script>
+let balance = 5000000;
+
+function sendUSD() {
+  const username = document.getElementById('username').value;
+  const amount = Number(document.getElementById('amount').value);
+
+  if (!username || !amount) {
+    document.getElementById('message').innerText = 'Please fill all fields';
+    return;
+  }
+
+  if (amount > balance) {
+    document.getElementById('message').innerText = 'Insufficient Balance';
+    return;
+  }
+
+  balance -= amount;
+
+  document.getElementById('balance').innerText = '$' + balance;
+  document.getElementById('showUser').innerText = '@' + username + ' ✔';
+  document.getElementById('followers').innerText =
+    'Followers: ' + Math.floor(Math.random()*900 + 100) + 'K';
+  document.getElementById('likes').innerText =
+    'Likes: ' + Math.floor(Math.random()*9 + 1) + '.' + Math.floor(Math.random()*9) + 'M';
+
+  document.getElementById('dp').src =
+    'https://ui-avatars.com/api/?name=' + username + '&background=ff0050&color=fff&size=128';
+
+  document.getElementById('message').innerText =
+    '$' + amount + ' sent successfully to @' + username;
+}
+</script>
+
+</body>
+</html>
